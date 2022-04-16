@@ -13,10 +13,17 @@ message RequestBroadcastTx {
   bytes tx = 1;
 }
 
+message RequestRearrange{
+  bytes last_tx_hash = 1;
+  bytes tx = 2;
+}
+
 //----------------------------------------
 // Response types
 
 message ResponsePing {}
+
+message ResponseRearrange{}
 
 message ResponseBroadcastTx {
   tendermint.abci.ResponseCheckTx   check_tx   = 1;
@@ -29,4 +36,5 @@ message ResponseBroadcastTx {
 service BroadcastAPI {
   rpc Ping(RequestPing) returns (ResponsePing);
   rpc BroadcastTx(RequestBroadcastTx) returns (ResponseBroadcastTx);
+  rpc RearrangeProposal(RequestRearrange) returns (ResponseRearrange);
 }

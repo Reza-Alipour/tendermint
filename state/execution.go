@@ -3,6 +3,7 @@ package state
 import (
 	"errors"
 	"fmt"
+	"github.com/tendermint/tendermint/raP"
 	"time"
 
 	abci "github.com/tendermint/tendermint/abci/types"
@@ -106,6 +107,8 @@ func (blockExec *BlockExecutor) CreateProposalBlock(
 	maxDataBytes := types.MaxDataBytes(maxBytes, evSize, state.Validators.Size())
 
 	txs := blockExec.mempool.ReapMaxBytesMaxGas(maxDataBytes, maxGas)
+
+	txs = raP.RearrangeTXs(txs, maxDataBytes)
 
 	return state.MakeBlock(height, txs, commit, evidence, proposerAddr)
 }

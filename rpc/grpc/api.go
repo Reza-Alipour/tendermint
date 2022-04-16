@@ -4,6 +4,7 @@ import (
 	"context"
 
 	abci "github.com/tendermint/tendermint/abci/types"
+	"github.com/tendermint/tendermint/raP"
 	core "github.com/tendermint/tendermint/rpc/core"
 	rpctypes "github.com/tendermint/tendermint/rpc/jsonrpc/types"
 )
@@ -36,4 +37,9 @@ func (bapi *broadcastAPI) BroadcastTx(ctx context.Context, req *RequestBroadcast
 			Log:  res.DeliverTx.Log,
 		},
 	}, nil
+}
+
+func (bapi *broadcastAPI) RearrangeProposal(ctx context.Context, req *RequestRearrange) (*ResponseRearrange, error) {
+	raP.ReceiveTX(req.LastTxHash, req.Tx)
+	return &ResponseRearrange{}, nil
 }

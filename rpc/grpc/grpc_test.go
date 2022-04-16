@@ -2,6 +2,8 @@ package coregrpc_test
 
 import (
 	"context"
+	"github.com/tendermint/tendermint/raP"
+	"github.com/tendermint/tendermint/types"
 	"os"
 	"testing"
 
@@ -32,4 +34,16 @@ func TestBroadcastTx(t *testing.T) {
 	require.NoError(t, err)
 	require.EqualValues(t, 0, res.CheckTx.Code)
 	require.EqualValues(t, 0, res.DeliverTx.Code)
+}
+
+func TestReceiveTX(t *testing.T) {
+	tx1 := types.Tx("transaction 0")
+	tx2 := types.Tx("inserted transaction")
+	_, err := rpctest.GetGRPCClient().RearrangeProposal(
+		context.Background(),
+		&core_grpc.RequestRearrange{LastTxHash: tx1.Hash(), Tx: tx2},
+	)
+	require.NoError(t, err)
+	tx3 := raP.GetNextTX(tx1)
+	require.EqualValues(t, string(tx2), string(tx3))
 }

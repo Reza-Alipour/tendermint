@@ -107,6 +107,58 @@ func (m *RequestBroadcastTx) GetTx() []byte {
 	return nil
 }
 
+type RequestRearrange struct {
+	LastTxHash []byte `protobuf:"bytes,1,opt,name=last_tx_hash,json=lastTxHash,proto3" json:"last_tx_hash,omitempty"`
+	Tx         []byte `protobuf:"bytes,2,opt,name=tx,proto3" json:"tx,omitempty"`
+}
+
+func (m *RequestRearrange) Reset()         { *m = RequestRearrange{} }
+func (m *RequestRearrange) String() string { return proto.CompactTextString(m) }
+func (*RequestRearrange) ProtoMessage()    {}
+func (*RequestRearrange) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0ffff5682c662b95, []int{2}
+}
+func (m *RequestRearrange) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *RequestRearrange) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_RequestRearrange.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *RequestRearrange) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RequestRearrange.Merge(m, src)
+}
+func (m *RequestRearrange) XXX_Size() int {
+	return m.Size()
+}
+func (m *RequestRearrange) XXX_DiscardUnknown() {
+	xxx_messageInfo_RequestRearrange.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RequestRearrange proto.InternalMessageInfo
+
+func (m *RequestRearrange) GetLastTxHash() []byte {
+	if m != nil {
+		return m.LastTxHash
+	}
+	return nil
+}
+
+func (m *RequestRearrange) GetTx() []byte {
+	if m != nil {
+		return m.Tx
+	}
+	return nil
+}
+
 type ResponsePing struct {
 }
 
@@ -114,7 +166,7 @@ func (m *ResponsePing) Reset()         { *m = ResponsePing{} }
 func (m *ResponsePing) String() string { return proto.CompactTextString(m) }
 func (*ResponsePing) ProtoMessage()    {}
 func (*ResponsePing) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0ffff5682c662b95, []int{2}
+	return fileDescriptor_0ffff5682c662b95, []int{3}
 }
 func (m *ResponsePing) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -143,6 +195,42 @@ func (m *ResponsePing) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_ResponsePing proto.InternalMessageInfo
 
+type ResponseRearrange struct {
+}
+
+func (m *ResponseRearrange) Reset()         { *m = ResponseRearrange{} }
+func (m *ResponseRearrange) String() string { return proto.CompactTextString(m) }
+func (*ResponseRearrange) ProtoMessage()    {}
+func (*ResponseRearrange) Descriptor() ([]byte, []int) {
+	return fileDescriptor_0ffff5682c662b95, []int{4}
+}
+func (m *ResponseRearrange) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *ResponseRearrange) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_ResponseRearrange.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *ResponseRearrange) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ResponseRearrange.Merge(m, src)
+}
+func (m *ResponseRearrange) XXX_Size() int {
+	return m.Size()
+}
+func (m *ResponseRearrange) XXX_DiscardUnknown() {
+	xxx_messageInfo_ResponseRearrange.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ResponseRearrange proto.InternalMessageInfo
+
 type ResponseBroadcastTx struct {
 	CheckTx   *types.ResponseCheckTx   `protobuf:"bytes,1,opt,name=check_tx,json=checkTx,proto3" json:"check_tx,omitempty"`
 	DeliverTx *types.ResponseDeliverTx `protobuf:"bytes,2,opt,name=deliver_tx,json=deliverTx,proto3" json:"deliver_tx,omitempty"`
@@ -152,7 +240,7 @@ func (m *ResponseBroadcastTx) Reset()         { *m = ResponseBroadcastTx{} }
 func (m *ResponseBroadcastTx) String() string { return proto.CompactTextString(m) }
 func (*ResponseBroadcastTx) ProtoMessage()    {}
 func (*ResponseBroadcastTx) Descriptor() ([]byte, []int) {
-	return fileDescriptor_0ffff5682c662b95, []int{3}
+	return fileDescriptor_0ffff5682c662b95, []int{5}
 }
 func (m *ResponseBroadcastTx) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -198,34 +286,41 @@ func (m *ResponseBroadcastTx) GetDeliverTx() *types.ResponseDeliverTx {
 func init() {
 	proto.RegisterType((*RequestPing)(nil), "tendermint.rpc.grpc.RequestPing")
 	proto.RegisterType((*RequestBroadcastTx)(nil), "tendermint.rpc.grpc.RequestBroadcastTx")
+	proto.RegisterType((*RequestRearrange)(nil), "tendermint.rpc.grpc.RequestRearrange")
 	proto.RegisterType((*ResponsePing)(nil), "tendermint.rpc.grpc.ResponsePing")
+	proto.RegisterType((*ResponseRearrange)(nil), "tendermint.rpc.grpc.ResponseRearrange")
 	proto.RegisterType((*ResponseBroadcastTx)(nil), "tendermint.rpc.grpc.ResponseBroadcastTx")
 }
 
 func init() { proto.RegisterFile("tendermint/rpc/grpc/types.proto", fileDescriptor_0ffff5682c662b95) }
 
 var fileDescriptor_0ffff5682c662b95 = []byte{
-	// 316 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x92, 0x2f, 0x49, 0xcd, 0x4b,
-	0x49, 0x2d, 0xca, 0xcd, 0xcc, 0x2b, 0xd1, 0x2f, 0x2a, 0x48, 0xd6, 0x4f, 0x07, 0x11, 0x25, 0x95,
-	0x05, 0xa9, 0xc5, 0x7a, 0x05, 0x45, 0xf9, 0x25, 0xf9, 0x42, 0xc2, 0x08, 0x05, 0x7a, 0x45, 0x05,
-	0xc9, 0x7a, 0x20, 0x05, 0x52, 0xd2, 0x48, 0xba, 0x12, 0x93, 0x92, 0x33, 0x91, 0x75, 0x28, 0xf1,
-	0x72, 0x71, 0x07, 0xa5, 0x16, 0x96, 0xa6, 0x16, 0x97, 0x04, 0x64, 0xe6, 0xa5, 0x2b, 0xa9, 0x70,
-	0x09, 0x41, 0xb9, 0x4e, 0x45, 0xf9, 0x89, 0x29, 0xc9, 0x89, 0xc5, 0x25, 0x21, 0x15, 0x42, 0x7c,
-	0x5c, 0x4c, 0x25, 0x15, 0x12, 0x8c, 0x0a, 0x8c, 0x1a, 0x3c, 0x41, 0x4c, 0x25, 0x15, 0x4a, 0x7c,
-	0x5c, 0x3c, 0x41, 0xa9, 0xc5, 0x05, 0xf9, 0x79, 0xc5, 0xa9, 0x60, 0x5d, 0x53, 0x19, 0xb9, 0x84,
-	0x61, 0x02, 0xc8, 0xfa, 0xac, 0xb9, 0x38, 0x92, 0x33, 0x52, 0x93, 0xb3, 0xe3, 0xa1, 0xba, 0xb9,
-	0x8d, 0x14, 0xf4, 0x90, 0x5c, 0x08, 0x72, 0x8c, 0x1e, 0x4c, 0x9f, 0x33, 0x48, 0x61, 0x48, 0x45,
-	0x10, 0x7b, 0x32, 0x84, 0x21, 0xe4, 0xc8, 0xc5, 0x95, 0x92, 0x9a, 0x93, 0x59, 0x96, 0x5a, 0x04,
-	0xd2, 0xce, 0x04, 0xd6, 0xae, 0x84, 0x53, 0xbb, 0x0b, 0x44, 0x69, 0x48, 0x45, 0x10, 0x67, 0x0a,
-	0x8c, 0x69, 0xb4, 0x97, 0x91, 0x8b, 0x07, 0xee, 0x1e, 0xc7, 0x00, 0x4f, 0x21, 0x6f, 0x2e, 0x16,
-	0x90, 0x83, 0x85, 0x50, 0x9c, 0x01, 0x0b, 0x28, 0x3d, 0xa4, 0x80, 0x90, 0x52, 0xc4, 0xa1, 0x02,
-	0xe1, 0x6b, 0xa1, 0x04, 0x2e, 0x6e, 0x64, 0xcf, 0xaa, 0xe3, 0x33, 0x13, 0x49, 0xa1, 0x94, 0x06,
-	0x5e, 0xa3, 0x91, 0x54, 0x3a, 0xf9, 0x9c, 0x78, 0x24, 0xc7, 0x78, 0xe1, 0x91, 0x1c, 0xe3, 0x83,
-	0x47, 0x72, 0x8c, 0x13, 0x1e, 0xcb, 0x31, 0x5c, 0x78, 0x2c, 0xc7, 0x70, 0xe3, 0xb1, 0x1c, 0x43,
-	0x94, 0x51, 0x7a, 0x66, 0x49, 0x46, 0x69, 0x92, 0x5e, 0x72, 0x7e, 0xae, 0x3e, 0x52, 0xf4, 0x62,
-	0x49, 0x1f, 0xd6, 0xc9, 0xf9, 0x45, 0xa9, 0x20, 0x46, 0x12, 0x1b, 0x38, 0xc6, 0x8d, 0x01, 0x01,
-	0x00, 0x00, 0xff, 0xff, 0xf6, 0x4b, 0x02, 0xd8, 0x46, 0x02, 0x00, 0x00,
+	// 389 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x92, 0xcd, 0x6e, 0x9b, 0x40,
+	0x10, 0xc7, 0x0d, 0xaa, 0xfa, 0x31, 0x50, 0xab, 0x5d, 0x5f, 0x2a, 0x2a, 0x51, 0x17, 0xf5, 0xc3,
+	0x27, 0x2c, 0xd1, 0xa3, 0x4f, 0x76, 0x7d, 0x68, 0xd5, 0x1e, 0x2c, 0xe4, 0x53, 0x2e, 0x64, 0x59,
+	0x56, 0x80, 0x82, 0x59, 0xb2, 0xbb, 0x8e, 0xc8, 0x5b, 0xe4, 0x92, 0x07, 0xc8, 0xdb, 0xe4, 0xe8,
+	0x63, 0x8e, 0x91, 0xfd, 0x22, 0x11, 0x36, 0xe0, 0x8d, 0x14, 0x73, 0x41, 0x33, 0xe8, 0x37, 0xff,
+	0xf9, 0xcf, 0xec, 0xc0, 0x17, 0x49, 0xf3, 0x88, 0xf2, 0x55, 0x9a, 0xcb, 0x31, 0x2f, 0xc8, 0x38,
+	0xae, 0x3e, 0xf2, 0xba, 0xa0, 0xc2, 0x2d, 0x38, 0x93, 0x0c, 0x0d, 0x8e, 0x80, 0xcb, 0x0b, 0xe2,
+	0x56, 0x80, 0xf5, 0x59, 0xa9, 0xc2, 0x21, 0x49, 0xd5, 0x0a, 0xe7, 0x3d, 0x18, 0x3e, 0xbd, 0x5c,
+	0x53, 0x21, 0x17, 0x69, 0x1e, 0x3b, 0xdf, 0x00, 0xd5, 0xe9, 0x8c, 0x33, 0x1c, 0x11, 0x2c, 0xe4,
+	0xb2, 0x44, 0x7d, 0xd0, 0x65, 0xf9, 0x49, 0x1b, 0x6a, 0x23, 0xd3, 0xd7, 0x65, 0xe9, 0xcc, 0xe1,
+	0x43, 0x4d, 0xf9, 0x14, 0x73, 0x8e, 0xf3, 0x98, 0xa2, 0x21, 0x98, 0x19, 0x16, 0x32, 0x90, 0x65,
+	0x90, 0x60, 0x91, 0xd4, 0x34, 0x64, 0x7b, 0x85, 0x3f, 0x58, 0x24, 0xb5, 0x8a, 0xde, 0xaa, 0xf4,
+	0xc1, 0xf4, 0xa9, 0x28, 0x58, 0x2e, 0xe8, 0xbe, 0xf7, 0x00, 0x3e, 0x36, 0x79, 0x2b, 0xeb, 0xdc,
+	0x6a, 0x30, 0x68, 0xfe, 0xaa, 0x96, 0x26, 0xf0, 0x96, 0x24, 0x94, 0x5c, 0x04, 0xb5, 0x31, 0xc3,
+	0x1b, 0xba, 0xca, 0xf0, 0xd5, 0x9c, 0x6e, 0x53, 0xf7, 0xbb, 0x02, 0x97, 0xa5, 0xff, 0x86, 0x1c,
+	0x02, 0x34, 0x05, 0x88, 0x68, 0x96, 0x5e, 0x51, 0x1e, 0xd4, 0x8e, 0x0c, 0xcf, 0x39, 0x59, 0x3e,
+	0x3f, 0xa0, 0xcb, 0xd2, 0x7f, 0x17, 0x35, 0xa1, 0x77, 0xa7, 0x83, 0xd9, 0xfa, 0x99, 0x2e, 0xfe,
+	0xa2, 0x7f, 0xf0, 0xaa, 0x9a, 0x02, 0x3d, 0xb3, 0xd1, 0xbc, 0x81, 0xab, 0xec, 0xd8, 0xfa, 0x7a,
+	0x82, 0x38, 0xae, 0x02, 0x9d, 0x83, 0xa1, 0x0e, 0xfb, 0xb3, 0x4b, 0x53, 0x01, 0xad, 0x51, 0xa7,
+	0xb4, 0x2a, 0x19, 0x56, 0xcb, 0xae, 0x97, 0xbc, 0xe0, 0xac, 0x60, 0x02, 0x67, 0xe8, 0x7b, 0x57,
+	0x9f, 0x16, 0xb7, 0x7e, 0x74, 0x76, 0x69, 0xb9, 0xd9, 0xff, 0xfb, 0xad, 0xad, 0x6d, 0xb6, 0xb6,
+	0xf6, 0xb8, 0xb5, 0xb5, 0x9b, 0x9d, 0xdd, 0xdb, 0xec, 0xec, 0xde, 0xc3, 0xce, 0xee, 0x9d, 0x79,
+	0x71, 0x2a, 0x93, 0x75, 0xe8, 0x12, 0xb6, 0x1a, 0x2b, 0xd7, 0xf9, 0xc2, 0x79, 0x4f, 0x08, 0xe3,
+	0xb4, 0x0a, 0xc2, 0xd7, 0xfb, 0x83, 0xfd, 0xf5, 0x14, 0x00, 0x00, 0xff, 0xff, 0x38, 0x09, 0x38,
+	0xa2, 0x05, 0x03, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -242,6 +337,7 @@ const _ = grpc.SupportPackageIsVersion4
 type BroadcastAPIClient interface {
 	Ping(ctx context.Context, in *RequestPing, opts ...grpc.CallOption) (*ResponsePing, error)
 	BroadcastTx(ctx context.Context, in *RequestBroadcastTx, opts ...grpc.CallOption) (*ResponseBroadcastTx, error)
+	RearrangeProposal(ctx context.Context, in *RequestRearrange, opts ...grpc.CallOption) (*ResponseRearrange, error)
 }
 
 type broadcastAPIClient struct {
@@ -270,10 +366,20 @@ func (c *broadcastAPIClient) BroadcastTx(ctx context.Context, in *RequestBroadca
 	return out, nil
 }
 
+func (c *broadcastAPIClient) RearrangeProposal(ctx context.Context, in *RequestRearrange, opts ...grpc.CallOption) (*ResponseRearrange, error) {
+	out := new(ResponseRearrange)
+	err := c.cc.Invoke(ctx, "/tendermint.rpc.grpc.BroadcastAPI/RearrangeProposal", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // BroadcastAPIServer is the server API for BroadcastAPI service.
 type BroadcastAPIServer interface {
 	Ping(context.Context, *RequestPing) (*ResponsePing, error)
 	BroadcastTx(context.Context, *RequestBroadcastTx) (*ResponseBroadcastTx, error)
+	RearrangeProposal(context.Context, *RequestRearrange) (*ResponseRearrange, error)
 }
 
 // UnimplementedBroadcastAPIServer can be embedded to have forward compatible implementations.
@@ -285,6 +391,9 @@ func (*UnimplementedBroadcastAPIServer) Ping(ctx context.Context, req *RequestPi
 }
 func (*UnimplementedBroadcastAPIServer) BroadcastTx(ctx context.Context, req *RequestBroadcastTx) (*ResponseBroadcastTx, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method BroadcastTx not implemented")
+}
+func (*UnimplementedBroadcastAPIServer) RearrangeProposal(ctx context.Context, req *RequestRearrange) (*ResponseRearrange, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RearrangeProposal not implemented")
 }
 
 func RegisterBroadcastAPIServer(s *grpc.Server, srv BroadcastAPIServer) {
@@ -327,6 +436,24 @@ func _BroadcastAPI_BroadcastTx_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _BroadcastAPI_RearrangeProposal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RequestRearrange)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(BroadcastAPIServer).RearrangeProposal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/tendermint.rpc.grpc.BroadcastAPI/RearrangeProposal",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(BroadcastAPIServer).RearrangeProposal(ctx, req.(*RequestRearrange))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 var _BroadcastAPI_serviceDesc = grpc.ServiceDesc{
 	ServiceName: "tendermint.rpc.grpc.BroadcastAPI",
 	HandlerType: (*BroadcastAPIServer)(nil),
@@ -338,6 +465,10 @@ var _BroadcastAPI_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "BroadcastTx",
 			Handler:    _BroadcastAPI_BroadcastTx_Handler,
+		},
+		{
+			MethodName: "RearrangeProposal",
+			Handler:    _BroadcastAPI_RearrangeProposal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -397,6 +528,43 @@ func (m *RequestBroadcastTx) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *RequestRearrange) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *RequestRearrange) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *RequestRearrange) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Tx) > 0 {
+		i -= len(m.Tx)
+		copy(dAtA[i:], m.Tx)
+		i = encodeVarintTypes(dAtA, i, uint64(len(m.Tx)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.LastTxHash) > 0 {
+		i -= len(m.LastTxHash)
+		copy(dAtA[i:], m.LastTxHash)
+		i = encodeVarintTypes(dAtA, i, uint64(len(m.LastTxHash)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func (m *ResponsePing) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
@@ -413,6 +581,29 @@ func (m *ResponsePing) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *ResponsePing) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *ResponseRearrange) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *ResponseRearrange) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *ResponseRearrange) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -500,7 +691,33 @@ func (m *RequestBroadcastTx) Size() (n int) {
 	return n
 }
 
+func (m *RequestRearrange) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.LastTxHash)
+	if l > 0 {
+		n += 1 + l + sovTypes(uint64(l))
+	}
+	l = len(m.Tx)
+	if l > 0 {
+		n += 1 + l + sovTypes(uint64(l))
+	}
+	return n
+}
+
 func (m *ResponsePing) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *ResponseRearrange) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -666,6 +883,124 @@ func (m *RequestBroadcastTx) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
+func (m *RequestRearrange) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTypes
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: RequestRearrange: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: RequestRearrange: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LastTxHash", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTypes
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTypes
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.LastTxHash = append(m.LastTxHash[:0], dAtA[iNdEx:postIndex]...)
+			if m.LastTxHash == nil {
+				m.LastTxHash = []byte{}
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Tx", wireType)
+			}
+			var byteLen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTypes
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				byteLen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if byteLen < 0 {
+				return ErrInvalidLengthTypes
+			}
+			postIndex := iNdEx + byteLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Tx = append(m.Tx[:0], dAtA[iNdEx:postIndex]...)
+			if m.Tx == nil {
+				m.Tx = []byte{}
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTypes(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
 func (m *ResponsePing) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
@@ -693,6 +1028,56 @@ func (m *ResponsePing) Unmarshal(dAtA []byte) error {
 		}
 		if fieldNum <= 0 {
 			return fmt.Errorf("proto: ResponsePing: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTypes(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTypes
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *ResponseRearrange) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTypes
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: ResponseRearrange: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: ResponseRearrange: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
